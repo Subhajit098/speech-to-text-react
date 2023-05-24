@@ -1,12 +1,14 @@
 import 'regenerator-runtime/runtime'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react'
+import React,{useState} from 'react'
 import "./App.css";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 export default function App() {
 
-  const {transcript,
+  const [value,setValue]= useState();
+
+  const { transcript,
     interimTranscript,
     finalTranscript,
     resetTranscript,
@@ -20,38 +22,36 @@ export default function App() {
 
   if (browserSupportsContinuousListening) {
 
-     startlistening = ()=> SpeechRecognition.startListening({ continuous: true , language : "en-IN"});
+    startlistening = () => SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
   } else {
     // Fallback behaviour
   }
 
+  const setEmpty=()=>{
+    console.log(transcript);
+    resetTranscript("");
+  }
 
   if (!browserSupportsSpeechRecognition) {
     return null;
   }
 
   return (
-    <div className='container'>
-    <div className=''>
-      <h2>Speech to text converter</h2>
+    <div className='container-xxl'>
+        <h2 className='mb-5'>Speech to text converter</h2>
+          
+        <div className="main-content" onClick={() =>  setValue(transcript)}>
+                    {transcript}
+                </div>
 
-      <div className='main-content'>
+
+        <div className='btn-style m-2'>
+          <button onClick={() => navigator.clipboard.writeText(transcript)} className='m-2'>copy to clipboard</button>
+          <button onClick={startlistening} className='m-2'>Start Listening</button>
+          <button onClick={SpeechRecognition.stopListening} className='m-2'>Stop Listening</button>
+          <button onClick={setEmpty} className='m-2'>Erase text</button>
+        </div>
       
-      <b-form-textarea
-        id="textarea-rows"
-    placeholder="Tall textarea"
-    rows="8"
-      >{transcript}</b-form-textarea>
-   
-        
-      </div>
-
-      <div className='btn-style'>
-        <button onClick={() =>  navigator.clipboard.writeText(transcript)} className='m-3'>copy to clipboard</button>
-        <button onClick={startlistening} className='m-2'>Start Listening</button>
-        <button onClick={SpeechRecognition.stopListening} className='m-2'>Stop Listening</button>
-      </div>
-      </div>
     </div>
   )
 }
