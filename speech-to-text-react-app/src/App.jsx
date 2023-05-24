@@ -45,11 +45,11 @@ export default function App() {
                 </div>
 
 
-        <div className='btn-style m-2'>
-          <button onClick={() => navigator.clipboard.writeText(transcript)} className='m-2'>copy to clipboard</button>
-          <button onClick={startlistening} className='m-2'>Start Listening</button>
-          <button onClick={SpeechRecognition.stopListening} className='m-2'>Stop Listening</button>
-          <button onClick={setEmpty} className='m-2'>Erase text</button>
+        <div className='m-2'>
+          <button onClick={() => navigator.clipboard.writeText(transcript)} type="button" className='m-2 btn btn-dark'>copy to clipboard</button>
+          <button onClick={startlistening} type="button" className='m-2 btn btn-dark'>Start Listening</button>
+          <button onClick={SpeechRecognition.stopListening} type="button" className='m-2 btn btn-dark'>Stop Listening</button>
+          <button onClick={setEmpty} type="button" className='m-2 btn btn-dark'>Erase text</button>
         </div>
       
     </div>
